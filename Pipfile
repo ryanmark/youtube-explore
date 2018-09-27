@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 "beautifulsoup4" = "*"
 "lxml" = "*"
+"rq" = "*"
+"redis" = "*"
+"flask" = "*"
+"python-slugify" = "*"
+"gunicorn" = "*"
 
 [dev-packages]
 

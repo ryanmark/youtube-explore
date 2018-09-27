@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block main %}
+<h3>Youtube search</h3>
+<h4><a href="/{{search.slug}}">{{ search.query }}</a></h4>
+<p>Status: <strong>{{ search.status }}</strong></p>
+<p>Started: <strong>{{ search.started }}</strong></p>
+<p>Completed: <strong>{{ search.finished }}</strong></p>
+<pre>{{ search.top_videos|tojson(indent=4) }}</pre>
+{% endblock %}

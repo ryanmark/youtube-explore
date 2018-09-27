@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block main %}
+<h3>Saved searches:</h3>
+<table border="1" width="100%">
+<thead>
+<tr>
+  <th>Search query</th>
+  <th>Search status</th>
+  <th>Started</th>
+</tr>
+</thead>
+<tbody>
+{% for search in searches %}
+  <tr>
+    <td><a href="/{{search.slug}}">{{ search.query }}</a></td>
+    <td>{{ search.status }}</td>
+    <td>{{ search.started }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+<br><br>
+<form action="/new-search" method="POST">
+<fieldset>
+<legend>Run a new search</legend>
+<p><label><span>Youtube search terms:</span><br><input type="text" required id="query" name="query"></label></p>
+<p><label><input id="searches" name="searches" type="number" value="5" min="1" max="20"> <span>Number of search results from the query to start with</span><br></label></p>
+<p><label><input id="branch" name="branch" type="number" value="3" min="0" max="20"> <span>Branching factor: the number of recommendations that are followed</span></label></p>
+<p><label><input id="depth" name="depth" type="number" value="5" min="0" max="20"> <span>The depth of the exploration</span></label></p>
+<!--<p><label><input type="checkbox" id="alltime" name="alltime"> <span>Start from the most viewed videos for the query (using the option filter by viewcount on youtube)</span></label></p>-->
+<p><label><span>Search from country:</span><br><input type="text" required id="country" name="country" value="US" minlength="2" maxlength="2"></label></p>
+<p><label><span>Search in language:</span><br><input type="text" required id="lang" name="lang" value="en-US" minlength="2" maxlength="8"></label></p>
+<p><label><input type="checkbox" id="recent" name="recent"> <span>Keep only videos that have less than 1000 views</span></label></p>
+<p><label><input type="checkbox" id="loopok" name="loopok"> <span>Follow the same video multiple times</span></label></p>
+<br>
+<p><button type="submit">Submit search</button></p>
+</fieldset>
+</form>
+{% endblock %}
