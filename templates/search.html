@@ -5,5 +5,9 @@
 <p>Status: <strong>{{ search.status }}</strong></p>
 <p>Started: <strong>{{ search.started }}</strong></p>
 <p>Completed: <strong>{{ search.finished }}</strong></p>
+{% if search.top_videos %}
 <pre>{{ search.top_videos|tojson(indent=4) }}</pre>
+{% else %}
+<pre>no data yet</pre>
+{% end %}
 {% endblock %}
