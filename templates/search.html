@@ -1,13 +1,34 @@
 {% extends "base.html" %}
 {% block main %}
-<h3>Youtube search</h3>
-<h4><a href="/{{search.slug}}">{{ search.query }}</a></h4>
+<h1>Youtube search query:</h1>
+<h4>{{ search.query }}</h4>
 <p>Status: <strong>{{ search.status }}</strong></p>
 <p>Started: <strong>{{ search.started }}</strong></p>
 <p>Completed: <strong>{{ search.finished }}</strong></p>
+<h2>50 top recommended videos</h2>
 {% if search.top_videos %}
+{% for vid in search.top_videos %}
+<hr>
+<div>
+<h3><a target="_blank" href="https://www.youtube.com/watch?v={{vid.id}}">{{vid.title}}</a></h3>
+<p>views: <strong>{{ vid.views }}</strong></p>
+<p>likes: <strong>{{ vid.likes }}</strong></p>
+<p>dislikes: <strong>{{ vid.dislikes }}</strong></p>
+<p>depth: <strong>{{ vid.depth }}</strong></p>
+<p>mult: <strong>{{vid.mult}}</strong></p>
+<p>key: <strong>{{ vid.key|join(', ') }}</strong></p>
+<p>nb_recommendations: <strong>{{vid.nb_recommendations}}</strong></p>
+<p>recommendations:</p>
+<ul>
+{% for id in vid.recommendations %}
+<li><a target="_blank" href="https://www.youtube.com/watch?v={{id}}">{{id}}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endfor %}
 <pre>{{ search.top_videos|tojson(indent=4) }}</pre>
 {% else %}
-<pre>no data yet</pre>
+<hr>
+<h3><i>no data yet</i></h3>
 {% endif %}
 {% endblock %}
