@@ -53,12 +53,12 @@ def get_search(slug):
         dat['finished'] = datetime.utcfromtimestamp(float(dat['finished']))
     return dat
 
-
 @app.route("/")
 def index():
     slugs = redis.smembers('search-slugs')
     searches = [get_search(slug) for slug in slugs]
-    return render_template('index.html', searches=searches)
+    sorted_searches = sorted(searches, key=lambda x: x['started'], reverse=True)
+    return render_template('index.html', searches=sorted_searches)
 
 @app.route("/new-search", methods=['POST'])
 def new_search():
